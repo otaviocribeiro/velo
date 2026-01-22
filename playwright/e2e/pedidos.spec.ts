@@ -2,8 +2,15 @@ import { test, expect } from '@playwright/test';
 
 // AAA - Arrange, Act, Assert - Preparar, Agir, Verificar
 
+// Javascript é assíncrono, por isso precisamos usar async/await
+// Se tirarmos o await, todos os testes serão executados em paralelo, ao mesmo tempo
+
+
+// page é a aba do navegador, ela é criada automaticamente pelo Playwright
+// o page está aqui atraves de uma injeção de dependência
 test('deve consultar um pedido aprovado', async ({ page }) => {
     
+    // await serve para dizer, espere isso temrminar antes de continuar
     //Arrange
     await page.goto('http://localhost:5173/');
     //Checkpoint (faz parte do Arrange)
