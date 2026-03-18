@@ -30,7 +30,7 @@ test('deve consultar um pedido aprovado', async ({ page }) => {
     //await page.getByTestId('search-order-id').fill('VLO-T0PGRW');
 
     // como seria o mesmo xpath - //label[text()='Número do Pedido']/../input o playwright deixa mais legivel
-    // outra opção -  input[name='order-id'].fill('VLO-T0PGRW') 
+    // outra opção -  input[name='order-id'].fill('VLO-T0PGRW') seletor css
     await page.getByRole('textbox', { name: 'Número do Pedido' }).click();
     await page.getByRole('textbox', { name: 'Número do Pedido' }).fill('VLO-T0PGRW');
 
