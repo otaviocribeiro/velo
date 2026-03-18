@@ -1,5 +1,10 @@
 import { test, expect } from '@playwright/test';
 
+// yarn playwright test -> roda todos os testes
+// yarn playwright test --ui -> roda todos os testes em modo interativo
+// yarn playwright test --debug -> roda todos os testes em modo debug
+// yarn playwright codegen http://localhost:5173/ -> gera o código base para o teste
+
 // AAA - Arrange, Act, Assert - Preparar, Agir, Verificar
 
 // Javascript é assíncrono, por isso precisamos usar async/await
@@ -24,7 +29,8 @@ test('deve consultar um pedido aprovado', async ({ page }) => {
     //await page.getByTestId('search-order-id').click();
     //await page.getByTestId('search-order-id').fill('VLO-T0PGRW');
 
-    // como seria o mesmo xpath - //label[text()='Número do Pedido']/../input o playwright deixa mais legivel 
+    // como seria o mesmo xpath - //label[text()='Número do Pedido']/../input o playwright deixa mais legivel
+    // outra opção -  input[name='order-id'].fill('VLO-T0PGRW') 
     await page.getByRole('textbox', { name: 'Número do Pedido' }).click();
     await page.getByRole('textbox', { name: 'Número do Pedido' }).fill('VLO-T0PGRW');
 
