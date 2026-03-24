@@ -13,7 +13,7 @@ import { test, expect } from '@playwright/test';
 
 // page é a aba do navegador, ela é criada automaticamente pelo Playwright
 // o page está aqui atraves de uma injeção de dependência
-test('deve consultar um pedido aprovado', async ({ page }) => {
+test('deve consultar um pedido aprovado ATÉ AULA DESAFIO', async ({ page }) => {
     
     // await serve para dizer, espere isso temrminar antes de continuar
     //Arrange
@@ -60,4 +60,27 @@ test('deve consultar um pedido aprovado', async ({ page }) => {
     await expect(page.getByTestId('order-result-status')).toBeVisible();
     await expect(page.getByTestId('order-result-status')).toContainText('APROVADO');
     // await expect(page.getByText('APROVADO')).toBeVisible();
+});
+
+test('deve consultar um pedido aprovado', async ({ page }) => {
+
+    //Test Data
+    const order = 'VLO-T0PGRW'
+    
+    //Arrange
+    await page.goto('http://localhost:5173/');
+    await expect(page.getByTestId('hero-section').getByRole('heading')).toContainText('Velô Sprint');
+
+    await page.getByRole('link', { name: 'Consultar Pedido' }).click();
+    await expect(page.getByRole('heading')).toContainText('Consultar Pedido');
+
+    //Act
+    await page.getByRole('textbox', { name: 'Número do Pedido' }).fill(order);
+    await page.getByRole('button', { name: 'Buscar Pedido' }).click();
+
+    //Assert
+    await expect(page.getByTestId('order-result-id')).toContainText(order);
+
+    await expect(page.getByTestId('order-result-status')).toBeVisible();
+    await expect(page.getByTestId('order-result-status')).toContainText('APROVADO');
 });
