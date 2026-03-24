@@ -45,6 +45,7 @@ test('deve consultar um pedido aprovado', async ({ page }) => {
 
     //Assert
     // await expect(page.getByTestId('order-result-id')).toBeVisible({timeout: 10000});
+    // ele não ficar 10s parado, tem até 10s para encontrar o elemento
     // await expect(page.getByTestId('order-result-id')).toContainText('VLO-T0PGRW');
     await expect(page.getByText('VLO-T0PGRW')).toBeVisible();
 
