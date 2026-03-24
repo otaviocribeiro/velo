@@ -46,10 +46,18 @@ test('deve consultar um pedido aprovado', async ({ page }) => {
     //Assert
     // await expect(page.getByTestId('order-result-id')).toBeVisible({timeout: 10000});
     // ele não ficar 10s parado, tem até 10s para encontrar o elemento
-    // await expect(page.getByTestId('order-result-id')).toContainText('VLO-T0PGRW');
-    await expect(page.getByText('VLO-T0PGRW')).toBeVisible();
+    await expect(page.getByTestId('order-result-id')).toContainText('VLO-T0PGRW');
+    // //p[text()="Pedido"]/..//p[text()="VLO-T0PGRW"] se não tiver testID
+     
+    // const containerPedido = page.getByRole('paragraph')
+    //     .filter({hasText: /^Pedido$/}) //expressão regular, começa e termina com "Pedido"
+    //     .locator('..')
 
-    // await expect(page.getByTestId('order-result-status')).toBeVisible();
-    // await expect(page.getByTestId('order-result-status')).toContainText('APROVADO');
-    await expect(page.getByText('APROVADO')).toBeVisible();
+    // await expect(containerPedido).toContainText('VLO-T0PGRW');
+
+    //await expect(page.getByText('VLO-T0PGRW')).toBeVisible();
+
+    await expect(page.getByTestId('order-result-status')).toBeVisible();
+    await expect(page.getByTestId('order-result-status')).toContainText('APROVADO');
+    // await expect(page.getByText('APROVADO')).toBeVisible();
 });
