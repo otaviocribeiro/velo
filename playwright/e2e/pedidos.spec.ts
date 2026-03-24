@@ -29,8 +29,11 @@ test('deve consultar um pedido aprovado', async ({ page }) => {
     //await page.getByTestId('search-order-id').click();
     //await page.getByTestId('search-order-id').fill('VLO-T0PGRW');
 
-    // como seria o mesmo xpath - //label[text()='Número do Pedido']/../input o playwright deixa mais legivel
+    // como seria o mesmo xpath - //label[text()='Número do Pedido']/../input pega o label com o texto, vai por pai e depois vai pro "irmão"
     // outra opção -  input[name='order-id'].fill('VLO-T0PGRW') seletor css
+    // este localizador faz a mesma coisa que o xpath acima, mas é mais legivel
+    // page.getByLabel('Número do Pedido')
+    // page.getByPlaceholder('Ex: VLO-ABC123')
     await page.getByRole('textbox', { name: 'Número do Pedido' }).click();
     await page.getByRole('textbox', { name: 'Número do Pedido' }).fill('VLO-T0PGRW');
 
