@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 
+import { generateOrderCode } from '../support/helpers';
+
 // yarn playwright test -> roda todos os testes
 // yarn playwright test --ui -> roda todos os testes em modo interativo
 // yarn playwright test --debug -> roda todos os testes em modo debug
@@ -88,7 +90,7 @@ test('deve consultar um pedido aprovado', async ({ page }) => {
 test('deve exibir mensagem quando o pedido não é encontrado', async ({ page }) => {
 
     //Test Data
-    const order = 'VLO-123'
+    const order = generateOrderCode();
     
     //Arrange
     await page.goto('http://localhost:5173/');
