@@ -64,56 +64,77 @@ test('deve consultar um pedido aprovado ATÉ AULA DESAFIO', async ({ page }) => 
     // await expect(page.getByText('APROVADO')).toBeVisible();
 });
 
-test('deve consultar um pedido aprovado', async ({ page }) => {
+test.describe("Consultar Pedido", () => {
 
-    //Test Data
-    const order = 'VLO-T0PGRW'
+    // test.beforeAll(async () => {
+    //     console.log('beforeAll: roda uma vez antes de todos os testes.')
+    // });
+      
+    test.beforeEach(async ({page}) => {
+        console.log('beforeEach: roda antes de cada teste.')
+
+        await page.goto('http://localhost:5173/');
+        await expect(page.getByTestId('hero-section').getByRole('heading')).toContainText('Velô Sprint');
     
-    //Arrange
-    await page.goto('http://localhost:5173/');
-    await expect(page.getByTestId('hero-section').getByRole('heading')).toContainText('Velô Sprint');
+        await page.getByRole('link', { name: 'Consultar Pedido' }).click();
+        await expect(page.getByRole('heading')).toContainText('Consultar Pedido');
+    });
+      
+    // test.afterEach(async () => {
+    //     console.log('afterEach: roda depois de cada teste.')
+    // });
+      
+    // test.afterAll(async () => {
+    //     console.log('afterAll: roda uma vez depois de todos os testes.')
+    // });
 
-    await page.getByRole('link', { name: 'Consultar Pedido' }).click();
-    await expect(page.getByRole('heading')).toContainText('Consultar Pedido');
+    test('deve consultar um pedido aprovado', async ({ page }) => {
 
-    //Act
-    await page.getByRole('textbox', { name: 'Número do Pedido' }).fill(order);
-    await page.getByRole('button', { name: 'Buscar Pedido' }).click();
-
-    //Assert
-    await expect(page.getByTestId('order-result-id')).toContainText(order);
-
-    await expect(page.getByTestId('order-result-status')).toBeVisible();
-    await expect(page.getByTestId('order-result-status')).toContainText('APROVADO');
-});
-
-test('deve exibir mensagem quando o pedido não é encontrado', async ({ page }) => {
-
-    //Test Data
-    const order = generateOrderCode();
+        //Test Data
+        const order = 'VLO-T0PGRW'
+        
+        //Arrange
+        //beforeEach
     
-    //Arrange
-    await page.goto('http://localhost:5173/');
-    await expect(page.getByTestId('hero-section').getByRole('heading')).toContainText('Velô Sprint');
-
-    await page.getByRole('link', { name: 'Consultar Pedido' }).click();
-    await expect(page.getByRole('heading')).toContainText('Consultar Pedido');
-
-    //Act
-    await page.getByRole('textbox', { name: 'Número do Pedido' }).fill(order);
-    await page.getByRole('button', { name: 'Buscar Pedido' }).click();
-
-    //Assert
-    //await expect(page.getByRole('heading', { name: 'Pedido não encontrado', level: 3})).toBeVisible();
-
-    //await expect(page.getByText('Verifique o número do pedido e tente novamente')).toBeVisible();
-    //const message =  page.locator('//p[text()="Verifique o número do pedido e tente novamente"]');
-    //const message =  page.locator('p', {hasText: 'Verifique o número do pedido e tente novamente'});
-    //await expect(message).toBeVisible();
+        //Act
+        await page.getByRole('textbox', { name: 'Número do Pedido' }).fill(order);
+        await page.getByRole('button', { name: 'Buscar Pedido' }).click();
     
-    await expect(page.locator('#root')).toMatchAriaSnapshot(`
-        - img
-        - heading "Pedido não encontrado" [level=3]
-        - paragraph: Verifique o número do pedido e tente novamente
-        `);
+        //Assert
+        await expect(page.getByTestId('order-result-id')).toContainText(order);
+    
+        await expect(page.getByTestId('order-result-status')).toBeVisible();
+        await expect(page.getByTestId('order-result-status')).toContainText('APROVADO');
+    });
+    
+    test('deve exibir mensagem quando o pedido não é encontrado', async ({ page }) => {
+    
+        //Test Data
+        const order = generateOrderCode();
+        
+        //Arrange
+        //beforeEach
+    
+        await page.getByRole('link', { name: 'Consultar Pedido' }).click();
+        await expect(page.getByRole('heading')).toContainText('Consultar Pedido');
+    
+        //Act
+        await page.getByRole('textbox', { name: 'Número do Pedido' }).fill(order);
+        await page.getByRole('button', { name: 'Buscar Pedido' }).click();
+    
+        //Assert
+        //await expect(page.getByRole('heading', { name: 'Pedido não encontrado', level: 3})).toBeVisible();
+    
+        //await expect(page.getByText('Verifique o número do pedido e tente novamente')).toBeVisible();
+        //const message =  page.locator('//p[text()="Verifique o número do pedido e tente novamente"]');
+        //const message =  page.locator('p', {hasText: 'Verifique o número do pedido e tente novamente'});
+        //await expect(message).toBeVisible();
+        
+        await expect(page.locator('#root')).toMatchAriaSnapshot(`
+            - img
+            - heading "Pedido não encontrado" [level=3]
+            - paragraph: Verifique o número do pedido e tente novamente
+            `);
+    });
+    
 });
